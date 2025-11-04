@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from lxml.xmlid import element
 from odoo import http, SUPERUSER_ID
 from odoo.http import request as req
 import requests
@@ -73,6 +74,9 @@ class Amarpay(http.Controller):
         amount = kw.get('amount')
         status = 'VALID'
         val_id = kw.get('pg_txnid')
+        order_id = kw.get('order_id')
+        if order_id:
+            order_id = int(order_id)
 
         if not tran_id:
             return 'Trand id not found'
@@ -83,7 +87,7 @@ class Amarpay(http.Controller):
             'tran_id': tran_id,
             'val_id': val_id,
             'status': status,
-            'order_id': 64,  # change
+            'order_id': order_id,  # change
             'partner_id': 32,  # change
         })
 

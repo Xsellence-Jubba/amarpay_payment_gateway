@@ -41,7 +41,7 @@ class AmarpayTransaction(models.Model):
         payload = json.dumps({
             "order_id": order.id,
             "store_id": setting.store_id,
-            "tran_id": setting.tran_id,
+            "tran_id": order.name,
             "success_url": setting.success_url,
             "fail_url": setting.fail_url,
             "cancel_url": setting.cancel_url,
