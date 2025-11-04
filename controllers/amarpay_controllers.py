@@ -69,11 +69,12 @@ class Amarpay(http.Controller):
             'tran_id': tran_id,
             'val_id': val_id,
             'status': status,
-            'order_id': 64, # change
-            'partner_id': 32, # change
+            'order_id': 64,  # change
+            'partner_id': 32,  # change
         })
 
-        tran = req.env['amarpay.transaction'].with_user(SUPERUSER_ID).invoice_generation(tran_id,amount,status,val_id)
+        tran = req.env['amarpay.transaction'].with_user(SUPERUSER_ID).invoice_generation(tran_id, amount, status,
+                                                                                         val_id)
         print('tran', tran)
         # return {"status": "received"}
 
@@ -81,7 +82,7 @@ class Amarpay(http.Controller):
             return 'tran return empty'
 
         if tran.get('status'):
-            req.redirect('/payment/success')
+            return req.redirect('/payment/success')
 
         # if fail
         return '/payment/success/process'
