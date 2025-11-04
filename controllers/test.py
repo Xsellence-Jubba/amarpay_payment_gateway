@@ -49,8 +49,21 @@ class AmarpayTest(http.Controller):
 
         return 't77'
 
-    @http.route('/payment/success/process', type='http', auth='public', methods=['POST'], csrf=False, save_session=False)
+    @http.route('/dfdfdfdfdf', type='http', auth='public', methods=['POST'], csrf=False, save_session=False)
     def payment_success_process(self, **kw):
         log_str = str(kw)
         req.env['amarpay.log'].create({'text': log_str})
-        return 't77'
+        return 'dfdfdfdfdf'
+
+    @http.route('/t88', auth='public')
+    def t66(self, **kw):
+        a = req.env['amarpay.transaction'].create({
+            'amount_total': '200.00',
+            'currency': 'BDT',
+            'tran_id': '111',
+            'val_id': '111',
+            'status': 'VALID',
+            'order_id': 30,
+            'partner_id': 19,
+        })
+        return "t88"

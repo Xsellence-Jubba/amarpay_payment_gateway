@@ -60,6 +60,19 @@ class Amarpay(http.Controller):
         status = 'VALID'
         val_id = kw.get('pg_txnid')
 
+        if not tran_id:
+            return 'Trand id not found'
+
+        new_tran = req.env['amarpay.transaction'].create({
+            'amount_total': amount,
+            'currency': 'BDT',
+            'tran_id': tran_id,
+            'val_id': val_id,
+            'status': status,
+            'order_id': 64, # change
+            'partner_id': 32, # change
+        })
+
         tran = req.env['amarpay.transaction'].with_user(SUPERUSER_ID).invoice_generation(tran_id,amount,status,val_id)
         print('tran', tran)
         # return {"status": "received"}
