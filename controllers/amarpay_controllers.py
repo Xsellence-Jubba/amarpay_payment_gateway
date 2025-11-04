@@ -73,14 +73,12 @@ class Amarpay(http.Controller):
         amount = kw.get('amount')
         status = 'VALID'
         val_id = kw.get('pg_txnid')
-        order_id = kw.get('order_id')
-        if order_id:
-            order_id = int(order_id)
+        order_name = kw.get('mer_txnid')
 
         if not tran_id:
             return 'Trand id not found'
 
-        order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
+        order = req.env['sale.order'].sudo().search([('name', '=', order_name)])
         if not order:
             return 'Order not found'
 
