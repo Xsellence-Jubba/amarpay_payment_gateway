@@ -1,0 +1,74 @@
+<odoo>
+    <!-- List view of amarpay.setting -->
+    <record id="amarpay_setting_list_id" model="ir.ui.view">
+        <field name="name">AmarpaySetting</field>
+        <field name="model">amarpay.setting</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="store_id"/>
+                <field name="tran_id"/>
+                <field name="currency"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view of amarpay.setting -->
+    <record id="amarpay_setting_form_view_id" model="ir.ui.view">
+        <field name="name">AmarpaySetting</field>
+        <field name="model">amarpay.setting</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!--<div class="oe_title">-->
+                    <!--    <h1>-->
+                    <!--        <field name="sequence" readonly="1"/>-->
+                    <!--    </h1>-->
+                    <!--</div>-->
+                    <group>
+                        <group>
+                           <field name="mode" />
+                           <field name="sandbox_url" />
+                           <field name="url" />
+                           <field name="store_id" />
+                            <field name="tran_id" />
+                            <field name="success_url" />
+                            <field name="fail_url" />
+                            <field name="cancel_url" />
+                            <field name="currency" />
+                            <field name="signature_key" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <!--<notebook>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action view of amarpay_setting -->
+    <record id="amarpay_setting_action_id" model="ir.actions.act_window">
+        <field name="name">AmarpaySetting</field>
+        <field name="res_model">amarpay.setting</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,26 @@
+<odoo>
+    <menuitem id="amarpay_root_id"
+              name="Amarpay"
+              sequence="300"
+    />
+    <menuitem id="amarpay_transaction_menu_id"
+              name="Transaction"
+              parent="amarpay_root_id"
+              sequence="0"
+              action="amarpay_transaction_action_id"
+    />
+    <menuitem id="amarpay_setting_menu_id"
+              name="Setting"
+              parent="amarpay_root_id"
+              sequence="1"
+              action="amarpay_setting_action_id"
+    />
+
+    <menuitem id="amarpay_log_menu_id"
+              name="Log"
+              parent="amarpay_root_id"
+              sequence="2"
+              action="amarpay_log_action_id"
+    />
+
+</odoo>

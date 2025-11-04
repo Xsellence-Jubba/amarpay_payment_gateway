@@ -1,0 +1,74 @@
+<odoo>
+    <!-- List view of amarpay.transaction -->
+    <record id="amarpay_transaction_list_id" model="ir.ui.view">
+        <field name="name">Transaction</field>
+        <field name="model">amarpay.transaction</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="amount_total"/>
+                <field name="tran_id"/>
+                <field name="status"/>
+                <field name="order_id"/>
+                <field name="partner_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view of amarpay.transaction -->
+    <record id="amarpay_transaction_form_view_id" model="ir.ui.view">
+        <field name="name">Transaction</field>
+        <field name="model">amarpay.transaction</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!--<div class="oe_title">-->
+                    <!--    <h1>-->
+                    <!--        <field name="sequence" readonly="1"/>-->
+                    <!--    </h1>-->
+                    <!--</div>-->
+                    <group>
+                        <group>
+                            <field name="amount_total"/>
+                            <field name="currency"/>
+                            <field name="tran_id"/>
+                            <field name="status"/>
+                            <field name="val_id"/>
+                            <field name="order_id"/>
+                            <field name="partner_id"/>
+                            <field name="multi_card_name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <!--<notebook>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action view of amarpay_transaction -->
+    <record id="amarpay_transaction_action_id" model="ir.actions.act_window">
+        <field name="name">Transaction</field>
+        <field name="res_model">amarpay.transaction</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

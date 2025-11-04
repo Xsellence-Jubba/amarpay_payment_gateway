@@ -1,0 +1,59 @@
+<odoo>
+    <!-- List view of amarpay.log -->
+    <record id="amarpay_log_list_id" model="ir.ui.view">
+        <field name="name">AmarpayLog</field>
+        <field name="model">amarpay.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="text"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view of amarpay.log -->
+    <record id="amarpay_log_form_view_id" model="ir.ui.view">
+        <field name="name">AmarpayLog</field>
+        <field name="model">amarpay.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!--<div class="oe_title">-->
+                    <!--    <h1>-->
+                    <!--        <field name="sequence" readonly="1"/>-->
+                    <!--    </h1>-->
+                    <!--</div>-->
+                    <group>
+                        <field name="text"/>
+                    </group>
+                    <!--<notebook>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="xxxx">
+                            <group>
+                                <group>
+                                    <field name="xxxx"/>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action view of amarpay_log -->
+    <record id="amarpay_log_action_id" model="ir.actions.act_window">
+        <field name="name">AmarpayLog</field>
+        <field name="res_model">amarpay.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
