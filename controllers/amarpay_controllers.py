@@ -7,7 +7,7 @@ from werkzeug.utils import redirect
 
 
 class Amarpay(http.Controller):
-    @http.route('/pay/amarpay', auth='public')
+    @http.route('/pay/amarpay', type='http', auth='public', website=True)
     def pay_with_amarpay(self, **kw):
         """/pay/amarpay?order_id=123"""
         order_id = kw.get('order_id')
