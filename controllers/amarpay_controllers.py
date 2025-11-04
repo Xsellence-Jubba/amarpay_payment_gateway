@@ -109,14 +109,18 @@ class Amarpay(http.Controller):
         # if fail
         return req.redirect('/payment/fail')
 
-    @http.route('/payment/success', type='http', auth='public')
+    @http.route('/payment/success', type='http', auth='public', website=True)
     def payment_success(self, **kw):
-        return 'Payment Success'
+        return req.redirect('/order/confirmation')
 
-    @http.route('/payment/fail', type='http', auth='public')
+    @http.route('/payment/fail', type='http', auth='public', website=True)
     def payment_fail(self, **kw):
-        return 'Payment fail'
+        return req.render('amarpay_payment_gateway.payment_fail', {
+            'data': 'data',
+        })
 
-    @http.route('/payment/cancel', type='http', auth='public')
+    @http.route('/payment/cancel', type='http', auth='public', website=True)
     def payment_cancel(self, **kw):
-        return 'Payment Cancel'
+        return req.render('amarpay_payment_gateway.payment_cancel', {
+            'data': 'data',
+        })

@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'website'],
 
     # always loaded
     'data': [
@@ -29,6 +29,10 @@
         'views/amarpay_transaction_views.xml',
         'views/amarpay_setting.xml',
         'views/amarpay_log.xml',
+
+        'templates/payment_fail.xml',
+        'templates/payment_cancel.xml',
+
         'views/views.xml',
     ],
     # only loaded in demonstration mode

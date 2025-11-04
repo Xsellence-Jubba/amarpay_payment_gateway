@@ -1,0 +1,22 @@
+<odoo>
+    <template id="payment_cancel">
+        <t t-call="website.layout">
+            <t t-set="additional_title" t-value="'Payment Failed'"/>
+            <!--<div id="wrap" class="oe_structure oe_empty"/>-->
+
+            <div class="contained my-5">
+                <div class="row">
+                    <div class="col-12 col-lg-4"></div>
+                    <div class="col-12 col-lg-4">
+                        <h4 class="text-danger">Payment Cancelled</h4>
+                        <br/>
+                        <a href="/" class="btn btn-outline-primary px-5">Go To Home</a>
+                    </div>
+                    <div class="col-12 col-lg-4"></div>
+                </div>
+            </div>
+
+        </t>
+
+    </template>
+</odoo>
