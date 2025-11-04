@@ -13,7 +13,8 @@ class Amarpay(http.Controller):
         order_id = kw.get('order_id')
         order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
         if not order:
-            return '/pay/amarpay: sale order not found from sale.order'
+            # return '/pay/amarpay: sale order not found from sale.order'
+            return req.redirect('/payment/fail')
 
         payment_url = req.env['amarpay.transaction'].sudo().get_payment_url(order)
         if payment_url:
@@ -98,7 +99,7 @@ class Amarpay(http.Controller):
             return req.redirect('/payment/success')
 
         # if fail
-        return '/payment/success/process'
+        return req.redirect('/payment/fail')
 
     @http.route('/payment/success', type='http', auth='public')
     def payment_success(self, **kw):
