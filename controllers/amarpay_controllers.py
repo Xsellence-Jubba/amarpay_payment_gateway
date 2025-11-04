@@ -97,6 +97,9 @@ class Amarpay(http.Controller):
 
         if tran.get('status'):
             return req.redirect('/payment/success')
+        else:
+            req.env['amarpay.log'].create({'text': 'tran status failed'})
+
 
         # if fail
         return req.redirect('/payment/fail')
