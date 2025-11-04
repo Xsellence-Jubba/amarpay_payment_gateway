@@ -49,7 +49,7 @@ class Amarpay(http.Controller):
 
         return 't77'
 
-    @http.route('/payment/success/process', type='http', auth='none', methods=['POST'], csrf=False, save_session=False)
+    @http.route('/payment/success/process', type='http', auth='public', methods=['POST'], csrf=False, save_session=False)
     def payment_success_process(self, **kw):
         log_str = str(kw)
         req.env['amarpay.log'].create({'text': log_str})
