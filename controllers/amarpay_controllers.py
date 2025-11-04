@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from lxml.xmlid import element
 from odoo import http, SUPERUSER_ID
 from odoo.http import request as req
 import requests
@@ -88,7 +87,7 @@ class Amarpay(http.Controller):
             'val_id': val_id,
             'status': status,
             'order_id': order_id,  # change
-            'partner_id': 32,  # change
+            # 'partner_id': order_id.part,  # change
         })
 
         tran = req.env['amarpay.transaction'].with_user(SUPERUSER_ID).invoice_generation(tran_id, amount, status,
