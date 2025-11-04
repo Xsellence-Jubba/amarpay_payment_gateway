@@ -80,13 +80,17 @@ class Amarpay(http.Controller):
         if not tran_id:
             return 'Trand id not found'
 
+        order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
+        if not order:
+            return 'Order not found'
+
         new_tran = req.env['amarpay.transaction'].create({
             'amount_total': amount,
             'currency': 'BDT',
             'tran_id': tran_id,
             'val_id': val_id,
             'status': status,
-            'order_id': order_id,  # change
+            'order_id': order.id,  # change
             # 'partner_id': order_id.part,  # change
         })
 
