@@ -9,7 +9,8 @@ from werkzeug.utils import redirect
 class Amarpay(http.Controller):
     @http.route('/t55', auth='public')
     def t55(self, **kw):
-        order = req.env['sale.order'].sudo().search([('id', '=', 32)])
+        order_id = kw.get('order_id')
+        order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
         if not order:
             return 'No order found'
 
