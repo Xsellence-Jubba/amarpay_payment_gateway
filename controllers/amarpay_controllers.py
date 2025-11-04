@@ -7,6 +7,19 @@ from werkzeug.utils import redirect
 
 
 class Amarpay(http.Controller):
+    @http.route('/pay/amarpay', auth='public')
+    def pay_with_amarpay(self, **kw):
+        """/pay/amarpay?order_id=123"""
+        order_id = kw.get('order_id')
+        order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
+        if not order:
+            return '/pay/amarpay: sale order not found from sale.order'
+
+        payment_url = req.env['amarpay.transaction'].sudo().get_payment_url(order)
+        if payment_url:
+            return redirect(payment_url)
+        return req.redirect('/payment/fail')
+
     @http.route('/payment/success/process', type='http', auth='public', methods=['POST'], csrf=False,
                 save_session=False)
     def payment_success_process(self, **kw):
@@ -89,4 +102,12 @@ class Amarpay(http.Controller):
 
     @http.route('/payment/success', type='http', auth='public')
     def payment_success(self, **kw):
-        return 'payment_success'
+        return 'Payment Success'
+
+    @http.route('/payment/fail', type='http', auth='public')
+    def payment_fail(self, **kw):
+        return 'Payment fail'
+
+    @http.route('/payment/cancel', type='http', auth='public')
+    def payment_cancel(self, **kw):
+        return 'Payment Cancel'
