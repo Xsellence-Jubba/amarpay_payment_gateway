@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _, SUPERUSER_ID
 import requests
 import json
+from odoo.http import request as req
 
 
 class AmarpayTransaction(models.Model):
@@ -26,10 +27,10 @@ class AmarpayTransaction(models.Model):
 
         setting = self.env['amarpay.setting'].search([], limit=1)
         if not setting:
-            return False
+            return req.redirect('/settings')
 
         if not setting.mode:
-            return False
+            return req.redirect('/mode')
 
         url = ''
         if setting.mode == 'test':
@@ -70,11 +71,11 @@ class AmarpayTransaction(models.Model):
                 if dic_res.get('result') == 'true' and dic_res.get('payment_url'):
                     return dic_res.get('payment_url')
                 else:
-                    return None
+                    return req.redirect('/result')
             except json.JSONDecodeError:
-                return None
+                return req.redirect('/result2')
         else:
-            return None
+            return req.redirect('/result3')
 
     @api.model
     def invoice_generation(self, tran_id, amount, status=False, val_id=False):
@@ -85,17 +86,20 @@ class AmarpayTransaction(models.Model):
             transaction = self.search([('tran_id', '=', tran_id)], limit=1)
 
             if not transaction or float(transaction.amount_total) != float(amount):
-                return {"status": "failed", "message": "Transaction not found or amount mismatch."}
+                # return {"status": "failed", "message": "Transaction not found or amount mismatch."}
+                return req.redirect('/transaction')
 
             # 2. Update transaction fields and check payment status
             transaction.write({"status": status, "val_id": val_id})
 
             if status != "VALID":
-                return {"status": "failed", "message": f"Payment status is {status}"}
+                # return {"status": "failed", "message": f"Payment status is {status}"}
+                return req.redirect('/status validation')
 
             order = transaction.order_id
             if not order:
-                return {"status": "failed", "message": "No linked Sale Order"}
+                # return {"status": "failed", "message": "No linked Sale Order"}
+                return req.redirect('/status2')
 
             # 3. Confirm the sale order (this also creates the invoice)
             if order.state in ['draft', 'sent']:
@@ -106,7 +110,8 @@ class AmarpayTransaction(models.Model):
             # 4. Find the created invoice(s)
             invoices = order.invoice_ids.filtered(lambda inv: inv.state == 'draft')
             if not invoices:
-                return {"status": "failed", "message": "No draft invoices to post."}
+                # return {"status": "failed", "message": "No draft invoices to post."}
+                return req.redirect('/status2')
 
             # 5. Post the invoice(s)
             invoices.action_post()
@@ -129,7 +134,8 @@ class AmarpayTransaction(models.Model):
             if amarpay_journal:
                 payment_vals['journal_id'] = amarpay_journal.id
             else:
-                return {"status": "failed", "message": "AMARPAY journal not found."}
+                # return {"status": "failed", "message": "AMARPAY journal not found."}
+                return req.redirect('/status3')
 
             payment = payment_register.create(payment_vals)
             payment.action_create_payments()
@@ -141,4 +147,5 @@ class AmarpayTransaction(models.Model):
                 "message": "The order has been confirmed successfully."
             }
         except Exception as e:
-            return {"status": False, "error": str(e)}
+            # return {"status": False, "error": str(e)}
+            return req.redirect('/status4')
