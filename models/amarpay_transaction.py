@@ -49,7 +49,7 @@ class AmarpayTransaction(models.Model):
             "signature_key": setting.signature_key,
             "desc": order.name,
             "cus_name": order.partner_id.name,
-            "cus_email": order.partner_id.email,
+            "cus_email": order.partner_id.email or 'razzak606@gmail.com',
             "cus_add1": order.partner_id.street,
             "cus_add2": order.partner_id.street,
             "cus_city": order.partner_id.city,
