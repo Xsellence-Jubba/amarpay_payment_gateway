@@ -14,12 +14,14 @@ class Amarpay(http.Controller):
         order = req.env['sale.order'].sudo().search([('id', '=', order_id)])
         if not order:
             # return '/pay/amarpay: sale order not found from sale.order'
-            return req.redirect('/payment/fail')
+            return 'no order 1'
+            # return req.redirect('/payment/fail')
 
         payment_url = req.env['amarpay.transaction'].sudo().get_payment_url(order)
         if payment_url:
             return redirect(payment_url)
-        return req.redirect('/payment/fail')
+        return 'not payment_url'
+        # return req.redirect('/payment/fail')
 
     @http.route('/payment/success/process', type='http', auth='public', methods=['POST'], csrf=False,
                 save_session=False)
