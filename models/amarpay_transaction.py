@@ -57,7 +57,7 @@ class AmarpayTransaction(models.Model):
             "cus_state": order.partner_id.city,
             "cus_postcode": order.partner_id.zip,
             "cus_country": order.partner_id.country_id.name if order.partner_id.country_id else "",
-            "cus_phone": order.partner_id.phone,
+            "cus_phone": order.partner_id.mobile,
             "type": "json"
         })
         headers = {
@@ -71,6 +71,7 @@ class AmarpayTransaction(models.Model):
             try:
                 dic_res = response.json()
                 print('dic_res', dic_res)
+                self.env['amarpay.log'].create(str(dic_res))
                 if dic_res.get('result') == 'true' and dic_res.get('payment_url'):
                     return dic_res.get('payment_url')
                 else:
