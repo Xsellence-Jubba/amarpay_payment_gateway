@@ -49,7 +49,7 @@ class AmarpayTransaction(models.Model):
             "signature_key": setting.signature_key,
             "desc": order.name,
             "cus_name": order.partner_id.name,
-            "cus_email": order.partner_id.email or 'razzak606@gmail.com',
+            "cus_email": order.partner_id.email or 'test@example.invalid',
             "cus_add1": order.partner_id.street,
             "cus_add2": order.partner_id.street,
             "cus_city": order.partner_id.city,
@@ -67,6 +67,7 @@ class AmarpayTransaction(models.Model):
         if response.status_code == 200 and 'application/json' in response.headers.get('Content-Type', ''):
             try:
                 dic_res = response.json()
+                print('dic_res', dic_res)
                 if dic_res.get('result') == 'true' and dic_res.get('payment_url'):
                     return dic_res.get('payment_url')
                 else:
