@@ -26,7 +26,6 @@ class AmarpayTransaction(models.Model):
 
         setting = self.env['amarpay.setting'].search([], limit=1)
         if not setting:
-            print('Setting not found')
             return False
 
         if not setting.mode:
@@ -65,35 +64,25 @@ class AmarpayTransaction(models.Model):
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
-        print('aaaaa')
         if response.status_code == 200 and 'application/json' in response.headers.get('Content-Type', ''):
-            print('bbb')
             try:
                 dic_res = response.json()
-                print('dic_res', dic_res)
-                self.env['amarpay.log'].create(str(dic_res))
                 if dic_res.get('result') == 'true' and dic_res.get('payment_url'):
                     return dic_res.get('payment_url')
                 else:
-                    print('yyy')
                     return None
             except json.JSONDecodeError:
                 return None
         else:
-            print('ccc')
             return None
 
     @api.model
     def invoice_generation(self, tran_id, amount, status=False, val_id=False):
-        print('uuuuuuu')
         try:
             # print(f"--------------------------------------------------- invoice_generation -------------------------------------------------------------")
             self = self.with_user(SUPERUSER_ID)
             # 1. Find the transaction and validate it
             transaction = self.search([('tran_id', '=', tran_id)], limit=1)
-
-            print('xx', float(transaction.amount_total))
-            print('yy', float(amount))
 
             if not transaction or float(transaction.amount_total) != float(amount):
                 return {"status": "failed", "message": "Transaction not found or amount mismatch."}
@@ -102,7 +91,6 @@ class AmarpayTransaction(models.Model):
             transaction.write({"status": status, "val_id": val_id})
 
             if status != "VALID":
-                print('bbbb')
                 return {"status": "failed", "message": f"Payment status is {status}"}
 
             order = transaction.order_id
@@ -153,5 +141,4 @@ class AmarpayTransaction(models.Model):
                 "message": "The order has been confirmed successfully."
             }
         except Exception as e:
-            print(f"error    -----------------------   {str(e)}")
             return {"status": False, "error": str(e)}
